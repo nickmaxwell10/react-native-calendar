@@ -125,6 +125,7 @@ let Calendar = React.createClass({
     startDate: PropTypes.string,
     selectedDate: PropTypes.string,
     customStyle: PropTypes.object,
+    period: PropTypes.string,
   },
 
   getDefaultProps() {
@@ -224,7 +225,12 @@ let Calendar = React.createClass({
           if(currentDay < daysInMonth) {
             var newDay = moment(dayStart).set('date', currentDay + 1);
             var isToday = (moment().isSame(newDay, 'month') && moment().isSame(newDay, 'day')) ? true : false;
-	    var isSelected = moment(this.state.selectedDate).isSame(newDay, 'week') ? true : false;
+            var isSelected = (moment(this.state.selectedDate).isSame(newDay, 'month') && moment(this.state.selectedDate).isSame(newDay, 'day')) ? true : false;
+            if(this.props.period == 'week') {
+              isSelected = moment(this.state.selectedDate).isSame(newDay, 'week') ? true : false;
+            } else if(this.props.period == 'month') {
+              isSelected = moment(this.state.selectedDate).isSame(newDay, 'month') ? true : false;
+            } 
             var hasEvent = false;
             if (this.props.eventDates) {
               for (var x = 0; x < this.props.eventDates.length; x++) {
