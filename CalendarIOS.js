@@ -343,7 +343,7 @@ let Calendar = React.createClass({
   _scrollToItem(itemIndex) {
     var scrollToX = itemIndex * DEVICE_WIDTH;
     if (this.props.scrollEnabled) {
-      this.refs.calendar.scrollWithoutAnimationTo(0, scrollToX);
+      this.refs.calendar.scrollTo({y: 0, x: scrollToX, animated: false});
     }
   },
 
